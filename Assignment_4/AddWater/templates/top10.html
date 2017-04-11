@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <h1>Most popular Water</h1>
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Score</th>
+    </tr>
+    {% for element in content %}
+        <tr>
+            <td>{{ element.ProductName }}</td>
+            <td>{{ element.ProductTotalScore }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+</body>
+</html>

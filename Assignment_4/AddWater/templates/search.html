@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div id="searchbar" class="large-12" style="width: 20%">
+{#LIBRARY FROM: https://github.com/vdw/HideSeek  #}
+
+<input id="search" name="search" placeholder="Search Products" type="text" data-list=".products">
+    <script type="text/javascript">
+        $(document).ready(function() {
+	        $('#search').hideseek({
+	            hidden_mode: true
+});
+        });
+    </script>
+<div class ="large-12">
+    <ul class="products">
+    {% for element in content %}
+        <a href="/products#{{ element.ProductName }}"> <li> {{ element.ProductName }}</li></a>
+    {% endfor %}
+    </ul>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
