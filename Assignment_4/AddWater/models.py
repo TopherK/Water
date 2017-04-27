@@ -15,13 +15,8 @@ class Products(models.Model):
     NumberofReviews = models.IntegerField()
 
 
-    @staticmethod
-    def getAverageScore(self):
-        avg = Products.ProductTotalScore/Products.NumberofReviews
-        return avg
-
 
 class Reviews(models.Model):
-    ProductName = models.ForeignKey(Products, on_delete=models.CASCADE)
+    ProductName = models.ForeignKey(Products)
     ReviewScore = models.IntegerField()
     #User not working yet

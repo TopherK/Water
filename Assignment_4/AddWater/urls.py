@@ -6,7 +6,9 @@ urlpatterns = [
     url(r'^$', views.search, name='search'),
     url(r'^addproduct$', views.addproduct, name='index'),
     url(r'^top10$', views.top10, name='top10'),
-    url(r'^products$', views.products, name='products')
+    url(r'^products$', views.products, name='products'),
+    url(r'^addReview$', views.addReview, name='addReview')
+
 
 
 
