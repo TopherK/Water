@@ -7,18 +7,33 @@
 </head>
 <body>
 {% block content %}
+    	<script id="js">$(function() {
+    // Table sort code used: https://mottie.github.io/tablesorter/
+	// initial sort set using sortList option
+	$("#top10Table").tablesorter({
+		theme : 'blue',
+		// sort on the first column and second column in ascending order
+		sortList: [[1,1]]
+	});
+
+});
+</script>
     <h1>Most popular Water</h1>
-    <table>
+    <table id="top10Table" class="tablesorter">
+    <thead>
     <tr>
         <th>Name</th>
         <th>Score</th>
     </tr>
+    </thead>
+    <tbody>
     {% for element in content %}
         <tr>
             <td>{{ element.ProductName }}</td>
             <td>{{ element.ProductTotalScore }}</td>
         </tr>
     {% endfor %}
+    </tbody>
     </table>
 {% endblock %}
 </body>

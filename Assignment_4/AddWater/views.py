@@ -90,4 +90,4 @@ def addReview(request):
         'content': reviews,
         'form':form,
         }
-    return render(request, 'home.html', context)
+    return render(request, 'addReview.html', context)

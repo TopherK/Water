@@ -13,9 +13,9 @@ class Products(models.Model):
     ProductCategory = models.CharField(max_length=100)
     ProductTotalScore = models.IntegerField()
     NumberofReviews = models.IntegerField()
-    def __str__(self):
-        return (self.ProductName)
 
+    def __str__(self):
+        return self.ProductName
 
 
 class Reviews(models.Model):
