@@ -79,6 +79,15 @@ def products(request):
 def addReview(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
+        prodName = request.POST.get('ProductName')
+        prodScore = request.POST.get('ReviewScore')
+
+        #update product object
+        prodObj = Products.objects.get(pk=prodName)
+        prodObj.ProductTotalScore += int(prodScore)
+        prodObj.NumberofReviews += 1
+        prodObj.save()
+
         form.save()
     else:
         form = ReviewForm()
