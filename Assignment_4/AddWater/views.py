@@ -1,7 +1,7 @@
 from django.shortcuts import render
-
-from django.http import HttpResponse
-
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
@@ -18,6 +18,7 @@ def search(request):
     return render(request, 'search.html',context)
 
 
+@login_required(login_url="/login/")
 def addproduct(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -76,10 +77,11 @@ def products(request):
     }
     return render(request, 'products.html', context)
 
+@login_required(login_url="/login/")
 def addReview(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
-        prodName = request.POST.get('ProductName')
+        prodName = request.POST.get('ProductName') #actually returns the primary key
         prodScore = request.POST.get('ReviewScore')
 
         #update product object
@@ -100,3 +102,24 @@ def addReview(request):
         'form':form,
         }
     return render(request, 'addReview.html', context)
+
+#from lecture example.
+
+def register(request):
+    if request.method == "POST":
+        form = registration_form(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user = authenticate(
+                username=form.cleaned_data.get('username'),
+                password=form.cleaned_data.get('password1'))
+            #login call back
+            return HttpResponseRedirect('/')
+
+    else:
+        form = registration_form()
+    context = {
+        'title':'Register',
+        'form':form
+    }
+    return render(request, 'register.html', context)

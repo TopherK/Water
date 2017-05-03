@@ -1,0 +1,32 @@
+{% extends "default.html" %}
+{% load static %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="medium-6 medium-centered large-4 large-centered columns">
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <div class="row column log-in-form">
+        <h4 class="text-center">Register</h4>
+        {{ form.errors }}
+        <label>{{ form.username.label_tag }}</label>
+          {{ form.username }}
+
+        <label>{{ form.email.label_tag }}</label>
+          {{ form.email }}
+
+        <label>{{ form.password1.label_tag }}</label>
+          {{ form.password1 }}
+
+        <label>{{ form.password2.label_tag }}</label>
+        {{ form.password2 }}
+        <input type="submit" class="button expanded" value="Register">
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
