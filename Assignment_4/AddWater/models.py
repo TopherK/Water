@@ -22,3 +22,10 @@ class Reviews(models.Model):
     ProductName = models.ForeignKey(Products)
     ReviewScore = models.PositiveSmallIntegerField()
     ReviewText = models.TextField()
+
+    def __str__(self):
+        prodName = str(self.ProductName)
+        RevScore = str(self.ReviewScore)
+        RevText = self.ReviewText
+        RevStr = "Product Name: " + prodName + " Review Score: " + RevScore +  "  Content: " + RevText
+        return RevStr

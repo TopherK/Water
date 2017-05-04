@@ -1,0 +1,32 @@
+{% extends "default.html" %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+
+{% block content %}
+<div class="row">
+  <div class="large-12 columns">
+    <h1>Review List</h1>
+    <!-- <p>{{ submit }}</p> -->
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h2>Current List of reviews</h2>
+    <ul>
+    {% for element in content %}
+        <li><h3>Product Name: {{ element.ProductName }}</h3></li>
+        <h4>Score: {{ element.ReviewScore }}</h4>
+        <h4>Review: </h4> <p>{{ element.ReviewText }}</p>
+
+
+    {% endfor %}
+    </ul>
+
+  </div>
+</div>
+{% endblock %}

@@ -105,6 +105,15 @@ def addReview(request):
 
 #from lecture example.
 
+def displayreviews(request):
+    reviews = Reviews.objects.all()
+
+    context = {
+        'title': "Home",
+        'content': reviews,
+    }
+    return render(request, 'displayreviews.html', context)
+
 def register(request):
     if request.method == "POST":
         form = registration_form(request.POST)
