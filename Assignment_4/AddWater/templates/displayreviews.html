@@ -8,27 +8,83 @@
 
 
 {% block content %}
-<div class="row">
+    <script id="js">$(function() {
+    // Table sort code used: https://mottie.github.io/tablesorter/
+	// initial sort set using sortList option
+	$("#revTable").tablesorter({
+		theme: 'blue',
+        widgets: ["zebra", "filter", "resizable"],
+        widgetOptions : {
+          // filter_anyMatch replaced! Instead use the filter_external option
+          // Set to use a jQuery selector (or jQuery object) pointing to the
+          // external filter (column specific or any match)
+          filter_external : '.search',
+          // add a default type search to the first name column
+          filter_defaultFilter: { 1 : '~{query}' },
+          // include column filters
+          filter_columnFilters: true,
+          filter_placeholder: { search : 'Search...' },
+          filter_saveFilters : true,
+          filter_onlyAvail : 'filter-onlyAvail',
+          filter_reset: '.reset',
+          // headers widths applied at initialization & resizable reset
+          // this setting includes any non-resizable cells (resizable-false)
+          resizable_widths : [ '10%', '10%', '30px' ],
+          filter_functions : {
+
+              // Add select menu to this column
+              // set the column value to true, and/or add "filter-select" class name to header
+              '.username' : true
+
+            }
+        }
+      });
+
+      // make demo search buttons work
+      $('button[data-column]').on('click', function(){
+        var $this = $(this),
+          totalColumns = $table[0].config.columns,
+          col = $this.data('column'), // zero-based index or "all"
+          filter = [];
+
+        // text to add to filter
+        filter[ col === 'all' ? totalColumns : col ] = $this.text();
+        $table.trigger('search', [ filter ]);
+        return false;
+      });
+
+    });
+
+    </script>
+
   <div class="large-12 columns">
-    <h1>Review List</h1>
-    <!-- <p>{{ submit }}</p> -->
-  </div>
-</div>
-<div class="row">
-  <div class="large-12 columns">
-    <h2>Current List of reviews</h2>
-    <ul>
-    {% for element in content %}
-        <li><h3>Product Name: {{ element.ProductName }}</h3></li>
-        <h4>Score: {{ element.ReviewScore }}</h4>
-        <h4>Review: </h4> <p>{{ element.ReviewText }}</p>
-        <p>Reviewed by: {{ element.username }}</p>
-        <p>Reviewed at: {{ element.ReviewDate }}</p>
+    <table id="revTable" class="tablesorter">
+        <thead>
+            <th class="username filter-select" data-placeholder="Select a User">Reviewed By</th>
+            <th>Product Name</th>
+            <th>Score</th>
+            <th>Review</th>
+            <th>Reviewed At</th>
+        </thead>
+        <tbody>
+            {% for element in content %}
+            <tr>
+            <div id="{{ element.username }}">
+                <td> {{ element.username }}</td>
+                <td>{{ element.ProductName }}</td>
+                <td>{{ element.ReviewScore }}</td>
+                <td> {{ element.ReviewText }}</td>
+                <td> {{ element.ReviewDate }}</td>
+            </div>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        {% endblock %}
+    </div>
 
 
-    {% endfor %}
-    </ul>
-
-  </div>
-</div>
-{% endblock %}
+        </body>
+        </html>
+        </body>
+        </html>
