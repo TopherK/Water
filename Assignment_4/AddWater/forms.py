@@ -15,6 +15,7 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Reviews
         fields = '__all__'
+        exclude = ('username',)
 
 
 #from lecture example

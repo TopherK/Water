@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -27,6 +27,7 @@ class Reviews(models.Model):
     ReviewScore = models.PositiveSmallIntegerField()
     ReviewText = models.TextField()
     ReviewDate = models.DateTimeField(auto_now_add=True, db_index=True)
+    username = models.ForeignKey(User)
 
     def __str__(self):
         prodName = str(self.ProductName)
