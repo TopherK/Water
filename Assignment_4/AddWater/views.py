@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from django.db.models import Count
 
 
 # Create your views here.
@@ -107,8 +108,8 @@ def addReview(request):
         }
     return render(request, 'addReview.html', context)
 
-#from lecture example.
 
+#from lecture example.
 def displayreviews(request):
     reviews = Reviews.objects.order_by('-ReviewDate')
 
@@ -136,3 +137,27 @@ def register(request):
         'form':form
     }
     return render(request, 'register.html', context)
+
+
+def addflavor(request):
+    if request.method == 'POST':
+        form = FlavorsForm(request.POST)
+        if form.is_valid():
+            flavor = form.save(commit=False)
+            flavor.username = request.user
+            flavor.save()
+
+
+        form.save()
+    else:
+        form = FlavorsForm()
+
+    flavors = Flavors.objects.all()
+
+
+    context = {
+        'title':"Home",
+        'content': flavors,
+        'form':form,
+        }
+    return render(request, 'flavors.html', context)

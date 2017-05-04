@@ -35,3 +35,8 @@ class Reviews(models.Model):
         RevText = self.ReviewText
         RevStr = "Product Name: " + prodName + " Review Score: " + RevScore +  "  Content: " + RevText
         return RevStr
+
+class Flavors(models.Model):
+    ProductName = models.ForeignKey(Products)
+    ProductFlavor = models.CharField(max_length=15)
+    username = models.ForeignKey(User)

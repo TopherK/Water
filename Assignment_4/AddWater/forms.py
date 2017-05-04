@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from AddWater.models import Products, Reviews
+from AddWater.models import Products, Reviews, Flavors
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
@@ -17,6 +17,11 @@ class ReviewForm(ModelForm):
         fields = '__all__'
         exclude = ('username',)
 
+class FlavorsForm(ModelForm):
+    class Meta:
+        model = Flavors
+        fields = '__all__'
+        exclude = ('username','ProductFlavorCount',)
 
 #from lecture example
 class registration_form(UserCreationForm):

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^addReview$', views.addReview, name='addReview'),
     url(r'^register$',views.register, name='register'),
     url(r'^displayreviews$',views.displayreviews, name='displayreviews'),
+    url(r'^flavors$',views.addflavor, name='addflavor'),
 
 
 
