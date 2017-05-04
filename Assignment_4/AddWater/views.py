@@ -106,7 +106,7 @@ def addReview(request):
 #from lecture example.
 
 def displayreviews(request):
-    reviews = Reviews.objects.all()
+    reviews = Reviews.objects.order_by('-ReviewDate')
 
     context = {
         'title': "Home",
