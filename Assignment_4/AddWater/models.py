@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Flavors(models.Model):
-    ProductFlavor = models.CharField(max_length=15, unique=True,)
+    ProductFlavor = models.CharField(max_length=15)
     def __str__(self):
         return self.ProductFlavor
 
@@ -18,7 +18,7 @@ class Products(models.Model):
     ProductCategory = models.CharField(max_length=9, choices=CATEGORY_CHOICES)
     ProductTotalScore = models.PositiveSmallIntegerField()
     NumberofReviews = models.PositiveSmallIntegerField()
-    ProductFlavor = models.OneToOneField(Flavors)
+    ProductFlavor = models.ForeignKey(Flavors)
     INT_CHOICES = (
         (1, '1'),
         (2, '2'),
