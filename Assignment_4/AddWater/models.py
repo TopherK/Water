@@ -3,13 +3,14 @@ import datetime
 from django.contrib.auth.models import User
 # Create your models here.
 
-
-class Water(models.Model):
-    water = models.CharField(max_length=100)
+class Flavors(models.Model):
+    ProductFlavor = models.CharField(max_length=15, unique=True,)
+    def __str__(self):
+        return self.ProductFlavor
 
 
 class Products(models.Model):
-    ProductName = models.CharField(max_length=100)
+    ProductName = models.CharField(max_length=100, unique=True)
     CATEGORY_CHOICES = (
         ('Sparkling', 'Sparkling'),
         ('Flat', 'Flat'),
@@ -17,14 +18,27 @@ class Products(models.Model):
     ProductCategory = models.CharField(max_length=9, choices=CATEGORY_CHOICES)
     ProductTotalScore = models.PositiveSmallIntegerField()
     NumberofReviews = models.PositiveSmallIntegerField()
-
+    ProductFlavor = models.OneToOneField(Flavors)
+    INT_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
     def __str__(self):
         return self.ProductName
 
-
 class Reviews(models.Model):
     ProductName = models.ForeignKey(Products)
-    ReviewScore = models.PositiveSmallIntegerField()
+    CATEGORY_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    ReviewScore = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES)
     ReviewText = models.TextField()
     ReviewDate = models.DateTimeField(auto_now_add=True, db_index=True)
     username = models.ForeignKey(User)
@@ -36,7 +50,3 @@ class Reviews(models.Model):
         RevStr = "Product Name: " + prodName + " Review Score: " + RevScore +  "  Content: " + RevText
         return RevStr
 
-class Flavors(models.Model):
-    ProductName = models.ForeignKey(Products)
-    ProductFlavor = models.CharField(max_length=15)
-    username = models.ForeignKey(User)

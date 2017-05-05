@@ -12,7 +12,9 @@
       <li class="menu-text">Water!</li>
      <li><a href="/">Products</a></li>
       <li><a href="/addproduct">Add Products</a></li>
-      <li><a href="/flavors">Flavors</a></li>
+      {% if request.user.is_active and request.user.is_staff %}
+      <li><a href="/flavors">Add New Flavors (Staff)</a></li>
+      {% endif %}
       <li><a href="/top10">Top 10 Waters</a></li>
       <li><a href="/addReview">Add Reviews</a></li>
       <li><a href="/displayreviews">List Reviews</a></li>
@@ -25,7 +27,7 @@
           <li>Account: <b>{{request.user.username}}<b></li>
           <li><a href="/logout/">Logout</a></li>
           {% else %}
-              <li><p><a href="/login/">Log In</a>/<a href="/register/">Register</a></p></li>
+              <li><p><a href="/login/">Log In</a>/<a href="/register">Register</a></p></li>
           {% endif %}
         </ul>
       </div>

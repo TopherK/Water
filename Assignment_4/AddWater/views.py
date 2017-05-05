@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
@@ -27,8 +28,12 @@ def addproduct(request):
         if form.is_valid():
             ProductName = form.cleaned_data['ProductName']
             ProductCategory = form.cleaned_data['ProductCategory']
+            ProductFlavor = form.cleaned_data['ProductFlavor']
+
+
             post = Products.objects.create(ProductName=ProductName, ProductCategory=ProductCategory,
-                                           ProductTotalScore=0, NumberofReviews=0)
+                                           ProductFlavor=ProductFlavor,
+                                           ProductTotalScore=0, NumberofReviews=0,)
             post.save()
             # process the data in form.cleaned_data as required
             form = ProductForm()
@@ -138,22 +143,15 @@ def register(request):
     }
     return render(request, 'register.html', context)
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def addflavor(request):
     if request.method == 'POST':
         form = FlavorsForm(request.POST)
-        if form.is_valid():
-            flavor = form.save(commit=False)
-            flavor.username = request.user
-            flavor.save()
-
-
         form.save()
     else:
         form = FlavorsForm()
 
     flavors = Flavors.objects.all()
-
 
     context = {
         'title':"Home",

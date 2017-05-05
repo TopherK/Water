@@ -15,7 +15,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="large-12 columns">
+<div class="large-12 columns">
     <form action="" method="post">
       {% csrf_token %}
       <div class="row">
@@ -29,12 +29,11 @@
         </div>
       </div>
     </form>
-  </div>
   <div class="large-12 columns">
     <h2>Current Flavor profiles</h2>
     <ul>
     {% for element in content %}
-    <li>{{ element.ProductName }}, {{ element.ProductFlavor }}, {{ element.username }}</li>
+    <li>{{ element.ProductFlavor }}</li>
 
     {% endfor %}
     </ul>

@@ -8,20 +8,18 @@ from django.contrib.auth.models import User
 class ProductForm(ModelForm):
     class Meta:
         model = Products
-        fields = ['ProductName','ProductCategory']
+        fields = ['ProductName','ProductCategory','ProductFlavor']
 
+class FlavorsForm(ModelForm):
+    class Meta:
+        model = Flavors
+        fields = '__all__'
 
 class ReviewForm(ModelForm):
     class Meta:
         model = Reviews
         fields = '__all__'
         exclude = ('username',)
-
-class FlavorsForm(ModelForm):
-    class Meta:
-        model = Flavors
-        fields = '__all__'
-        exclude = ('username','ProductFlavorCount',)
 
 #from lecture example
 class registration_form(UserCreationForm):
