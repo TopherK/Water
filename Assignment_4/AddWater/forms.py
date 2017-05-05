@@ -20,6 +20,10 @@ class ReviewForm(ModelForm):
         model = Reviews
         fields = '__all__'
         exclude = ('username',)
+    #this is to make the ReviewForm show the ProductNames in alpabetical order
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
+        self.fields['ProductName'].queryset = Products.objects.order_by('ProductName')
 
 #from lecture example
 class registration_form(UserCreationForm):
