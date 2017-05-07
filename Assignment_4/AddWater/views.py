@@ -55,7 +55,7 @@ def top10(request):
     prodlist = Products.objects.order_by('-ProductTotalScore')[:10]
     for element in prodlist:
         if element.NumberofReviews != 0:
-            element.ProductTotalScore = element.ProductTotalScore / element.NumberofReviews
+            element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews, 1)
 
     context = {
         'title': "Home",
@@ -69,10 +69,10 @@ def products(request):
 
     for element in productsByScore:
         if element.NumberofReviews != 0:
-            element.ProductTotalScore = element.ProductTotalScore / element.NumberofReviews
+            element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews, 1)
     for element in productsByName:
         if element.NumberofReviews != 0:
-            element.ProductTotalScore = element.ProductTotalScore / element.NumberofReviews
+            element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews, 1)
 
 
 
@@ -129,7 +129,7 @@ def recommend(request):
     rec = []
     for element in prod:
         if element.NumberofReviews != 0:
-            element.ProductTotalScore = element.ProductTotalScore / element.NumberofReviews
+            element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews,1)
             if element.ProductTotalScore > 3:
                 rec.append(element)
 
