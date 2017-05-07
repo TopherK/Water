@@ -124,6 +124,21 @@ def displayreviews(request):
     }
     return render(request, 'displayreviews.html', context)
 
+def recommend(request):
+    prod = Products.objects.order_by('-ProductTotalScore')
+    rec = []
+    for element in prod:
+        if element.NumberofReviews != 0:
+            element.ProductTotalScore = element.ProductTotalScore / element.NumberofReviews
+            if element.ProductTotalScore > 3:
+                rec.append(element)
+
+    context = {
+        'title': "Home",
+        'content': rec,
+    }
+    return render(request, 'recommend.html', context)
+
 def register(request):
     if request.method == "POST":
         form = registration_form(request.POST)
