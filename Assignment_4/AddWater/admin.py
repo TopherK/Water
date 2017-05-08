@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Products)
 admin.site.register(Reviews)
 admin.site.register(Flavors)
+admin.site.register(Address)

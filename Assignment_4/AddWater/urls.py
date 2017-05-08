@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^displayreviews$',views.displayreviews, name='displayreviews'),
     url(r'^flavors$',views.addflavor, name='addflavor'),
     url(r'^recommend$',views.recommend, name='recommend'),
+    url(r'^addAddress$',views.addAddress, name='addAddress'),
+    url(r'^location',views.location, name='location'),
 
 
 

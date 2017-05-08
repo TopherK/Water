@@ -113,6 +113,45 @@ def addReview(request):
         }
     return render(request, 'addReview.html', context)
 
+@user_passes_test(lambda u: u.is_superuser)
+def addAddress(request):
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = AddressForm()
+
+
+    addr = Address.objects.all()
+    context = {
+        'title':"Home",
+        'content': addr,
+        'form':form,
+        }
+    return render(request, 'addAddress.html', context)
+
+def location(request):
+    loc = Address.objects.all()
+    form = LocationForm
+    addr = "none"
+    if request.method == 'POST':
+        form  = LocationForm(request.POST)
+        form.save(commit=False)
+        prodName = request.POST.get('ProductName')
+        prodList = Address.objects.get(ProductName=prodName)
+        prod = prodList.objects.annotate('address')
+        addr = prod[0].address
+    else:
+        addr = "None Selected"
+
+
+    context = {
+        'title': "Home",
+        'content': addr,
+        'form': form
+    }
+    return render(request, 'location.html', context)
 
 #from lecture example.
 def displayreviews(request):

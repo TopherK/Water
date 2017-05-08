@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from AddWater.models import Products, Reviews, Flavors
+from AddWater.models import Products, Reviews, Flavors, Address
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
@@ -25,6 +25,15 @@ class ReviewForm(ModelForm):
         super(ReviewForm, self).__init__(*args, **kwargs)
         self.fields['ProductName'].queryset = Products.objects.order_by('ProductName')
 
+class AddressForm(ModelForm):
+    class Meta:
+        model = Address
+        fields ='__all__'
+
+class LocationForm(ModelForm):
+    class Meta:
+        model = Address
+        fields = ['ProductName']
 #from lecture example
 class registration_form(UserCreationForm):
     email = forms.EmailField(

@@ -50,3 +50,9 @@ class Reviews(models.Model):
         RevStr = "Product Name: " + prodName + " Review Score: " + RevScore +  "  Content: " + RevText
         return RevStr
 
+class Address(models.Model):
+    ProductName = models.ForeignKey(Products)
+    address = models.CharField(max_length=200)
+    def __str__(self):
+        return  self.address
+
