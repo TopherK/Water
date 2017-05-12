@@ -29,11 +29,11 @@ def addproduct(request):
             ProductName = form.cleaned_data['ProductName']
             ProductCategory = form.cleaned_data['ProductCategory']
             ProductFlavor = form.cleaned_data['ProductFlavor']
-
+            ProductPHBalance = form.cleaned_data['ProductPHBalance']
 
             post = Products.objects.create(ProductName=ProductName, ProductCategory=ProductCategory,
                                            ProductFlavor=ProductFlavor,
-                                           ProductTotalScore=0, NumberofReviews=0,)
+                                           ProductTotalScore=0, NumberofReviews=0,ProductPHBalance=ProductPHBalance)
             post.save()
             # process the data in form.cleaned_data as required
             form = ProductForm()
@@ -65,21 +65,16 @@ def top10(request):
 
 def products(request):
     productsByName = Products.objects.order_by('ProductName')
-    productsByScore = Products.objects.order_by('-ProductTotalScore')
 
-    for element in productsByScore:
-        if element.NumberofReviews != 0:
-            element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews, 1)
     for element in productsByName:
         if element.NumberofReviews != 0:
             element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews, 1)
-
+            element.ProductTotalHydrationFactor = round(element.ProductTotalHydrationFactor / element.NumberofReviews)
 
 
     context = {
         'title': "Home",
         'content': productsByName,
-        'scoreSort': productsByScore
     }
     return render(request, 'products.html', context)
 
@@ -93,10 +88,12 @@ def addReview(request):
             review.save()
         prodName = request.POST.get('ProductName') #actually returns the primary key
         prodScore = request.POST.get('ReviewScore')
+        hydro = request.POST.get('HydrationFactor')
 
         #update product object
         prodObj = Products.objects.get(pk=prodName)
         prodObj.ProductTotalScore += int(prodScore)
+        prodObj.ProductTotalHydrationFactor += int(hydro)
         prodObj.NumberofReviews += 1
         prodObj.save()
 
@@ -169,7 +166,8 @@ def recommend(request):
     for element in prod:
         if element.NumberofReviews != 0:
             element.ProductTotalScore = round(element.ProductTotalScore / element.NumberofReviews,1)
-            if element.ProductTotalScore > 3:
+            element.ProductTotalHydrationFactor = round(element.ProductTotalHydrationFactor / element.NumberofReviews, 1)
+            if element.ProductTotalScore >= 3:
                 rec.append(element)
 
     context = {

@@ -19,6 +19,24 @@ class Products(models.Model):
     ProductTotalScore = models.PositiveSmallIntegerField()
     NumberofReviews = models.PositiveSmallIntegerField()
     ProductFlavor = models.ForeignKey(Flavors)
+    ProductTotalHydrationFactor = models.PositiveIntegerField(default=0)
+
+    PH_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+        (11, '11'),
+        (12, '12'),
+        (13, '13'),
+        (14, '14'),
+    )
     INT_CHOICES = (
         (1, '1'),
         (2, '2'),
@@ -26,6 +44,7 @@ class Products(models.Model):
         (4, '4'),
         (5, '5'),
     )
+    ProductPHBalance = models.PositiveSmallIntegerField(default=7, choices=PH_CHOICES)
     def __str__(self):
         return self.ProductName
 
@@ -39,6 +58,7 @@ class Reviews(models.Model):
         (5, '5'),
     )
     ReviewScore = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES)
+    HydrationFactor = models.PositiveSmallIntegerField(default=1, choices=CATEGORY_CHOICES)
     ReviewText = models.TextField()
     ReviewDate = models.DateTimeField(auto_now_add=True, db_index=True)
     username = models.ForeignKey(User)

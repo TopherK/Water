@@ -51,8 +51,10 @@
     <thead>
     <tr>
         <th class="username filter-select" data-placeholder="Select Flavor">Product Flavors/Taste</th>
+        <th class="username filter-select" data-placeholder="Select PH Balance (7 = Neutral)">PH Balance</th>
+        <th class="username filter-select" data-placeholder="Select Hydration Importance">Total Hydration Factor</th>
+        <th class="username filter-select" data-placeholder="Select Score (Only 3.0+ are recommended)">Product Ranking Score</th>
         <th>Product Name</th>
-        <th>Product Ranking Score</th>
     </tr>
     </thead>
     <tbody>
@@ -60,8 +62,10 @@
     <tr>
     <div id="{{ element.ProductName }}">
             <td> {{ element.ProductFlavor }}</td>
-            <td> {{ element.ProductName }}</td>
+            <td> {{ element.ProductPHBalance }}</td>
+           <td> {{ element.ProductTotalHydrationFactor }}</td>
             <td> {{ element.ProductTotalScore }}</td>
+        <td> <div style="font-size:large">{{ element.ProductName }}</div></td>
 
     </div>
     </tr>

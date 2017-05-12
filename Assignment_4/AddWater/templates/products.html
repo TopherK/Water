@@ -51,7 +51,9 @@
     <tr>
         <th>Product Name</th>
         <th>Product Category</th>
+        <th>Product PH Balance</th>
         <th>Product Ranking Score</th>
+        <th>Product Hydration Factor</th>
         <th>Number of Reviews</th>
         <th class="username filter-select" data-placeholder="Select Flavor">Product Flavors/Taste</th>
     </tr>
@@ -62,7 +64,9 @@
     <div id="{{ element.ProductName }}">
             <td> {{ element.ProductName }}</td>
             <td> {{ element.ProductCategory }}</td>
+            <td> {{ element.ProductPHBalance }}</td>
             <td> {{ element.ProductTotalScore }}</td>
+            <td> {{ element.ProductTotalHydrationFactor }}</td>
             <td> {{ element.NumberofReviews }}</td>
             <td> {{ element.ProductFlavor }}</td>
     </div>
